@@ -92,23 +92,22 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-ink"
     >
-      {/* Blurred ambient fill — on tall phones the clip is shown in FULL
-          (object-contain) so the whole bouquet fits; this soft-blurred frame
-          keeps the letterbox bands from going empty. Hidden on desktop (cover). */}
+      {/* Размытая миниатюра ~7 КБ под видео — заполняет фон, пока грузится
+          первый кадр, чтобы не мигать пустым цветом */}
       <div
         aria-hidden
-        className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl md:hidden"
-        // Заранее размытая миниатюра ~7 КБ — грузить сюда полный постер незачем.
+        className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl"
         style={{ backgroundImage: "url(/video/hero-poster-blur.jpg)" }}
       />
 
-      {/* Background video — whole bouquet on mobile (contain), full-bleed on desktop (cover) */}
       {/* src задан на самом <video>: у вложенного <source> событие error не
-          всплывает на видео, и сбой загрузки раньше вешал прелоадер навсегда */}
+          всплывает на видео, и сбой загрузки раньше вешал прелоадер навсегда.
+          object-cover на всех экранах: длинные телефоны (20:9) получают
+          полноэкранное видео с лёгкой обрезкой по бокам вместо полос. */}
       <video
         ref={videoRef}
         src="/video/hero.mp4"
-        className="absolute inset-0 size-full object-contain md:object-cover"
+        className="absolute inset-0 size-full object-cover"
         autoPlay
         loop
         muted

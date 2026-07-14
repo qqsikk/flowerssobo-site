@@ -90,7 +90,8 @@ export function ProductDetail({
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 430px"
-              className="object-cover object-[center_35%]"
+              className="object-cover"
+              style={{ objectPosition: product.imagePosition ?? "50% 50%" }}
             />
           </motion.div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-elev via-transparent to-transparent" />

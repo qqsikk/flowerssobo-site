@@ -15,8 +15,10 @@ const securityHeaders = [
   },
   {
     key: "Content-Security-Policy",
-    value:
-      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    // 'unsafe-eval' нужен только React-у в dev-режиме; в проде его нет.
+    value: `default-src 'self'; script-src 'self' 'unsafe-inline'${
+      process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""
+    }; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`,
   },
 ];
 

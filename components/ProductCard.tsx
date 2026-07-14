@@ -47,6 +47,7 @@ export function ProductCard({
           fill
           sizes="(max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+          style={{ objectPosition: product.imagePosition ?? "50% 50%" }}
         />
         <span className="absolute left-3 top-3 rounded-full bg-bg/85 px-2.5 py-1 text-[11px] font-medium text-ink backdrop-blur-sm">
           {product.formCategory}

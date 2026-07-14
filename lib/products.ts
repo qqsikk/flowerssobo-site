@@ -31,6 +31,11 @@ export type RawProduct = {
   /** Pre-fills the order form's category when «Заказать» is pressed. */
   formCategory: string;
   image: string;
+  /**
+   * CSS object-position для кропа фото: точка на букете, а не на лице
+   * флориста (на большинстве снимков лицо сверху, букет ниже центра).
+   */
+  imagePosition?: string;
 };
 
 export type Product = Omit<RawProduct, "price"> & {
@@ -48,6 +53,7 @@ const raw: RawProduct[] = [
     stems: { perStem: 458, options: [9, 15, 19, 25, 51, 101] },
     formCategory: "Монобукет",
     image: "/images/products/kustovaya-roza-mix.jpg",
+    imagePosition: "50% 55%",
   },
   {
     slug: "eustoma-belaya",
@@ -58,6 +64,7 @@ const raw: RawProduct[] = [
     stems: { perStem: 398, options: [9, 11, 15, 19, 25], photoCount: 19 },
     formCategory: "Монобукет",
     image: "/images/products/eustoma-belaya.jpg",
+    imagePosition: "50% 66%",
   },
   {
     slug: "krasnaya-roza",
@@ -68,6 +75,7 @@ const raw: RawProduct[] = [
     stems: { perStem: 260, options: [9, 15, 19, 25, 51, 101], photoCount: 25 },
     formCategory: "Монобукет",
     image: "/images/products/krasnaya-roza.jpg",
+    imagePosition: "50% 55%",
   },
   {
     slug: "gortenziya-sad-roza",
@@ -78,6 +86,7 @@ const raw: RawProduct[] = [
     price: 10000,
     formCategory: "Кастомный букет",
     image: "/images/products/gortenziya-sad-roza.jpg",
+    imagePosition: "50% 66%",
   },
   {
     slug: "mattiola-belaya",
@@ -88,6 +97,7 @@ const raw: RawProduct[] = [
     stems: { perStem: 388, options: [9, 11, 15, 21, 25] },
     formCategory: "Монобукет",
     image: "/images/products/mattiola-belaya.jpg",
+    imagePosition: "50% 58%",
   },
   {
     slug: "roza-51-korobka",
@@ -104,6 +114,7 @@ const raw: RawProduct[] = [
     },
     formCategory: "Букет-гигант",
     image: "/images/products/roza-51-korobka.jpg",
+    imagePosition: "50% 55%",
   },
   {
     slug: "diantus-mix",

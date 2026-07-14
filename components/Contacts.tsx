@@ -39,11 +39,12 @@ export function Contacts() {
               </span>
             </p>
 
+            {/* clamp + nowrap: номер не должен переноситься на узких экранах */}
             <a
               href={site.phoneHref}
-              className="mt-8 inline-flex items-center gap-3 font-display text-3xl text-ink transition-colors hover:text-rose md:text-4xl"
+              className="mt-8 inline-flex items-center gap-3 whitespace-nowrap font-display text-[clamp(1.3rem,6vw,2.25rem)] text-ink transition-colors hover:text-rose"
             >
-              <Phone size={26} weight="light" className="text-rose" />
+              <Phone size={26} weight="light" className="shrink-0 text-rose" />
               {site.phoneDisplay}
             </a>
           </Reveal>
@@ -57,7 +58,7 @@ export function Contacts() {
                   href={m.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-4 transition-colors duration-200 hover:border-rose/60 hover:bg-surface-hover"
+                  className="group flex items-center justify-center gap-2.5 rounded-xl border border-line bg-surface px-3 py-4 transition-colors duration-200 hover:border-rose/60 hover:bg-surface-hover"
                 >
                   <m.icon
                     size={24}
