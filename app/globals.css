@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — "Botanical" rebrand (2026-06-08). LIGHT-ONLY.       */
+/*  White background, deep-olive text #4e5142, brand/action olive       */
+/*  #677535 (= the logo colour), with sage / lavender / stone as the    */
+/*  distributed secondary accents. The `--color-rose*` names are KEPT   */
+/*  (dozens of components use text-rose / bg-rose / border-rose) but    */
+/*  now hold the brand olive, so the whole UI re-accents without        */
+/*  touching every file. Dark theme removed.                            */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-bg: #ffffff;
+  --color-bg-elev: #ffffff;
+  --color-bg-soft: #f3f4ef;
+  --color-ink: #4e5142;
+  --color-muted: #5f6357;
+  --color-faint: #8a8d83;
+
+  /* Primary action / brand accent (= logo olive #677535). Named *-rose
+     for drop-in compatibility with the existing utilities. */
+  --color-rose: #677535;
+  --color-rose-deep: #55612b;
+
+  /* Distributed secondary accents */
+  --color-sage: #9aa472;
+  --color-lavender: #b4afd0;
+  --color-stone: #848389;
+
+  --color-line: rgba(78, 81, 66, 0.14);
+  --color-line-strong: rgba(78, 81, 66, 0.24);
+  --color-surface: rgba(78, 81, 66, 0.045);
+  --color-surface-hover: rgba(78, 81, 66, 0.08);
+  --shadow-card: 0 24px 50px -32px rgba(78, 81, 66, 0.28);
+
+  --font-display: var(--font-onest), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-onest), system-ui, -apple-system, sans-serif;
+  --font-logo: var(--font-days), var(--font-onest), system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--color-line);
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: var(--color-rose);
+    color: #ffffff;
+  }
+
+  /* Section anchor offset for the sticky nav */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Fine uppercase label (eyebrows) */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-rose);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Preloader — gentle continuous spin for the flower mark            */
+/* ------------------------------------------------------------------ */
+@keyframes flower-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-flower-spin {
+  animation: flower-spin 1.5s linear infinite;
+  transform-origin: center;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Accessibility — respect reduced motion                            */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
