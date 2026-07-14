@@ -69,7 +69,13 @@ export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult>
   // Если хостинг не выпускает трафик к api.telegram.org напрямую, сюда можно
   // подставить адрес своего прокси/зеркала Bot API (self-hosted telegram-bot-api
   // или простой reverse-proxy). Формат путей у зеркала должен совпадать.
-  const apiBase = process.env.TELEGRAM_API_BASE ?? "https://api.telegram.org";
+  // Допустим и голый IP/хост без схемы — тогда подставляем http://.
+  // ВНИМАНИЕ: по http токен идёт в открытом виде; для боевого прокси
+  // настройте TLS и укажите https://.
+  const rawBase = process.env.TELEGRAM_API_BASE ?? "https://api.telegram.org";
+  const apiBase = (
+    /^https?:\/\//i.test(rawBase) ? rawBase : `http://${rawBase}`
+  ).replace(/\/+$/, "");
 
   if (!token || !chatIdsRaw) {
     return {
@@ -81,6 +87,10 @@ export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult>
 
   const chatIds = chatIdsRaw.split(",").map((s) => s.trim()).filter(Boolean);
   const text = formatOrderMessage(data);
+
+  // Ошибки URL/сети могут содержать полный адрес запроса вместе с токеном —
+  // вычищаем его из всего, что уходит в логи.
+  const redact = (s: string) => s.split(token).join("<TOKEN>");
 
   const sendOne = async (chatId: string): Promise<SendResult> => {
     try {
@@ -100,11 +110,11 @@ export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult>
       );
       if (!res.ok) {
         const body = await res.text();
-        return { ok: false, error: `Telegram API ${res.status}: ${body}` };
+        return { ok: false, error: redact(`Telegram API ${res.status}: ${body}`) };
       }
       return { ok: true };
     } catch (err) {
-      return { ok: false, error: describeError(err) };
+      return { ok: false, error: redact(describeError(err)) };
     }
   };
 
