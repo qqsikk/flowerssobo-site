@@ -51,10 +51,25 @@ export function formatOrderMessage(data: OrderInput): string {
 
 type SendResult = { ok: true } | { ok: false; error: string };
 
+/**
+ * Раскрывает undici-шную «fetch failed» до реальной причины (ENOTFOUND,
+ * ETIMEDOUT, ECONNREFUSED…) — иначе по логам не понять, DNS это или файрвол.
+ */
+function describeError(err: unknown): string {
+  if (!(err instanceof Error)) return "Не удалось связаться с Telegram";
+  const cause = err.cause as (Error & { code?: string }) | undefined;
+  const causeText = cause ? ` (${cause.code ?? cause.message})` : "";
+  return `${err.message}${causeText}`;
+}
+
 /** Send the order to Telegram via the Bot API. Token stays server-side. */
 export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatIdsRaw = process.env.TELEGRAM_CHAT_ID;
+  // Если хостинг не выпускает трафик к api.telegram.org напрямую, сюда можно
+  // подставить адрес своего прокси/зеркала Bot API (self-hosted telegram-bot-api
+  // или простой reverse-proxy). Формат путей у зеркала должен совпадать.
+  const apiBase = process.env.TELEGRAM_API_BASE ?? "https://api.telegram.org";
 
   if (!token || !chatIdsRaw) {
     return {
@@ -70,7 +85,7 @@ export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult>
   const sendOne = async (chatId: string): Promise<SendResult> => {
     try {
       const res = await fetch(
-        `https://api.telegram.org/bot${token}/sendMessage`,
+        `${apiBase}/bot${token}/sendMessage`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -89,10 +104,7 @@ export async function sendOrderToTelegram(data: OrderInput): Promise<SendResult>
       }
       return { ok: true };
     } catch (err) {
-      return {
-        ok: false,
-        error: err instanceof Error ? err.message : "Не удалось связаться с Telegram",
-      };
+      return { ok: false, error: describeError(err) };
     }
   };
 
