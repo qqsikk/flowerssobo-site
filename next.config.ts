@@ -21,6 +21,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Самодостаточный server.js в .next/standalone — его запускает Dockerfile.
+  // Vercel этот режим просто игнорирует, деплою не мешает.
+  output: "standalone",
   // Явный корень: иначе Turbopack берёт C:\Users\<user> (лишний lockfile),
   // кириллица из «Рабочий стол» попадает в имена чанков и роняет dev/build
   // паникой «byte index is not a char boundary» на Windows.

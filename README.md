@@ -54,6 +54,21 @@ npm run dev                  # http://localhost:3000
 
 Продакшен-сборка: `npm run build && npm start`. Линт: `npm run lint`.
 
+### Docker
+
+```bash
+docker build -t flowerssobo .
+docker run -p 3000:3000 \
+  -e TELEGRAM_BOT_TOKEN=... \
+  -e TELEGRAM_CHAT_ID=... \
+  flowerssobo
+```
+
+Multi-stage образ на `node:22-alpine` со standalone-выводом Next
+(итоговый слой — только `server.js`, статика и `public/`), запуск от
+непривилегированного пользователя. Секреты в образ не попадают —
+только через переменные окружения при запуске.
+
 ## Структура
 
 ```

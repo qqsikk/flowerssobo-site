@@ -1,0 +1,30 @@
+# Сборочные артефакты и зависимости — ставятся внутри образа
+node_modules
+.next
+out
+
+# Секреты — только через docker run -e / secrets, никогда в образ
+.env*
+!.env.example
+
+# Git и локальная обвязка
+.git
+.gitignore
+.vercel
+*.tsbuildinfo
+
+# Исходники медиа и черновики (в образ идут только public/)
+bubu
+bububu
+season-candidates
+DaysSansBlack
+*.mov
+IMG_*.jpg
+IMG_*.jpeg
+IMG_*.HEIC
+globals.css.darkbak
+start-site.bat
+
+# Docker
+Dockerfile
+.dockerignore
