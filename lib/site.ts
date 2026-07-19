@@ -22,6 +22,13 @@ export const site = {
   // Required RF disclaimer wherever Instagram (a Meta product) is shown.
   metaDisclaimer:
     "Instagram запрещён в РФ, принадлежит корпорации Meta, признанной экстремистской организацией",
+  /**
+   * Дата действующей редакции Политики конфиденциальности и Согласия.
+   * Меняется ТОЛЬКО при правке текстов /privacy и /consent — эта же дата
+   * фиксируется в каждой заявке в Telegram как версия, на которую дано
+   * согласие (доказательство по ч. 3 ст. 9 152-ФЗ).
+   */
+  privacyRevision: "19.07.2026",
 } as const;
 
 export const navLinks = [

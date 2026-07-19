@@ -1,4 +1,5 @@
 import type { OrderInput } from "./schema";
+import { site } from "./site";
 
 /** Escape characters that are special in Telegram HTML parse mode. */
 function esc(value: string): string {
@@ -43,6 +44,9 @@ export function formatOrderMessage(data: OrderInput): string {
     row("Способ связи", methods),
     row("Что нужно", data.category),
     row("Комментарий", data.comment),
+    // Фиксация факта согласия и версии документов (ч. 3 ст. 9 152-ФЗ):
+    // вместе со штампом времени это доказательство, что согласие дано.
+    `\n<i>Согласие на обработку ПДн подтверждено на сайте (редакция документов от ${esc(site.privacyRevision)})</i>`,
     `\n<i>${esc(stamp)} (МСК)</i>`,
   ];
 

@@ -79,6 +79,9 @@ export function Footer() {
             <a href="/privacy" className="transition-colors hover:text-ink">
               Политика конфиденциальности
             </a>
+            <a href="/consent" className="transition-colors hover:text-ink">
+              Согласие на обработку ПДн
+            </a>
             <p>
               ИНН {site.legal.inn} · ОГРНИП {site.legal.ogrnip}
             </p>

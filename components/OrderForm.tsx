@@ -456,15 +456,28 @@ export function OrderForm() {
                       <Check size={13} weight="bold" />
                     </span>
                     <span className="text-sm leading-snug text-muted">
-                      Я даю согласие на обработку персональных данных и принимаю{" "}
+                      Я даю{" "}
+                      <a
+                        href="/consent"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-ink underline underline-offset-2 transition-colors hover:text-rose"
+                      >
+                        согласие на обработку персональных данных
+                      </a>{" "}
+                      и подтверждаю ознакомление с{" "}
                       <a
                         href="/privacy"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-ink underline underline-offset-2 transition-colors hover:text-rose"
                       >
-                        политику конфиденциальности
+                        Политикой конфиденциальности
                       </a>
+                      <span className="mt-1 block text-xs text-faint">
+                        Заявка поступит нам через мессенджер Telegram — данные
+                        передаются на его серверы за пределами РФ
+                      </span>
                     </span>
                   </label>
                   {errors.consent ? (
