@@ -1,7 +1,7 @@
 # Flowerssobo — сайт цветочной студии
 
 Одностраничный сайт флористической студии **Flowerssobo** (Липецк): авторские букеты
-из сезонных цветов с доставкой за 60–90 минут. Живой сайт: [flowerssobo.vercel.app](https://flowerssobo.vercel.app).
+из сезонных цветов с доставкой за 60–90 минут. Живой сайт: [flowerssobo.ru](https://flowerssobo.ru).
 
 <p>
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-black">
